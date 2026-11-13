@@ -1,0 +1,57 @@
+h1{
+    color: red;
+    
+}
+.link{
+    color: green;
+}
+.special-link{
+    color: blue;
+}
+.nav-list li:nth-child(3) a {
+    color: yellow;
+}
+.post {
+    color:purple ;
+}
+#first-post {
+    color: orange;
+}
+.widget {
+    color: pink;
+}
+.color-list li:nth-child(1) {
+    color: gray;
+}
+.color-list li:nth-child(2) {
+    color: brown;
+}
+
+.color-list li:nth-child(2) {
+    color: brown;
+}
+ul.color-list li.highlighted {
+    color: black;
+}
+
+div.important-widget h3 {
+    color: darkred;
+}
+
+p.note  {
+    color: maroon;
+}
+
+#name {
+    color: white
+}
+
+
+
+
+
+
+
+
+
+
