@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Анастасия — веб-дизайнер и креативный директор.">
+    <meta name="theme-color" content="#2b050a">
+    <title>Анастасия — Creative Director | Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =============================================
+           ПЕРЕМЕННЫЕ И БАЗА
+           ============================================= */
+        :root {
+            --wine-950: #140204;
+            --wine-900: #2b050a;
+            --wine-800: #4a0e17;
+            --wine-600: #8b3a42;
+            --beige: #e6d5c9;
+            --paper: #e8d9cc;
+            --paper-light: #f4eae2;
+            --paper-deep: #d8c2b3;
+            --ink: #2b050a;
+            --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--wine-950);
+            color: var(--beige);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        .grain {
+            position: absolute; inset: 0; pointer-events: none; opacity: 0.16; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* =============================================
+           НАВИГАЦИЯ
+           ============================================= */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 22px 5vw; color: var(--beige);
+            transition: background 0.5s ease, color 0.5s ease, padding 0.5s var(--ease-out), box-shadow 0.5s ease;
+        }
+        .nav.scrolled { padding: 12px 5vw; background: rgba(20, 2, 4, 0.42); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
+        .nav.light { color: var(--wine-900); }
+        .nav.light.scrolled { background: rgba(244, 234, 226, 0.74); box-shadow: 0 8px 30px rgba(43, 5, 10, 0.06); }
+
+        .brand { display: inline-flex; align-items: center; gap: 12px; }
+        .logo-mark { width: 40px; height: 40px; flex: none; }
+        .brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; letter-spacing: 0.08em; line-height: 1; }
+
+        .nav-links { display: flex; gap: clamp(22px, 3.2vw, 46px); list-style: none; }
+        .nav-links a { display: inline-flex; align-items: center; gap: 10px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; opacity: 0.68; transition: opacity 0.3s ease; }
+        .nav-links a::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0; transform: scale(0.4); transition: opacity 0.3s ease, transform 0.3s var(--ease-out); }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-links a.active::before { opacity: 1; transform: scale(1); }
+
+        /* =============================================
+           ПЕРВЫЙ ЭКРАН
+           ============================================= */
+        .hero-section {
+            position: relative; width: 100%;
+            height: 100vh; height: 100svh; 
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse 55% 60% at 50% 42%, rgba(150, 40, 58, 0.55) 0%, rgba(110, 24, 40, 0.28) 45%, transparent 75%),
+                radial-gradient(circle at 8% 92%, rgba(122, 24, 42, 0.55) 0%, transparent 42%),
+                radial-gradient(circle at 94% 10%, rgba(110, 22, 38, 0.60) 0%, transparent 38%),
+                linear-gradient(165deg, #3d0b14 0%, #2b050a 48%, #170305 100%);
+        }
+
+        .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform; }
+        .orb-1 { width: 38vw; height: 38vw; left: -10vw; top: 8vh; background: rgba(139, 58, 66, 0.38); animation: drift 18s ease-in-out infinite alternate; }
+        .orb-2 { width: 30vw; height: 30vw; right: -6vw; top: 34vh; background: rgba(120, 22, 40, 0.5); animation: drift 22s ease-in-out infinite alternate-reverse; }
+        .orb-3 { width: 24vw; height: 24vw; left: 38vw; bottom: -10vh; background: rgba(176, 80, 90, 0.22); animation: drift 26s ease-in-out infinite alternate; }
+        @keyframes drift { 0% { transform: translate3d(0, 0, 0) scale(1); } 100% { transform: translate3d(3vw, -4vh, 0) scale(1.12); } }
+
+        .bg-giant-text {
+            position: absolute; top: 10vh; left: 50%; transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif; font-size: 14vw; font-weight: 400; letter-spacing: -2px; line-height: 1;
+            white-space: nowrap; z-index: 1; pointer-events: none; user-select: none;
+            background: linear-gradient(180deg, #f6e9de 8%, #e6d5c9 45%, rgba(230, 213, 201, 0.35) 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+
+        .hero-image-wrapper { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 100%; z-index: 2; display: flex; justify-content: center; align-items: flex-start; pointer-events: none; }
+        .beige-glow { position: absolute; width: 60vw; height: 80vh; background: radial-gradient(circle, rgba(230, 213, 201, 0.25) 0%, transparent 60%); filter: blur(50px); top: 30%; z-index: 1; animation: pulseGlow 4s infinite alternate ease-in-out; }
+        @keyframes pulseGlow { 0% { opacity: 0.6; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1.05); } }
+
+        .hero-image-wrapper picture { display: contents; }
+        .hero-image {
+            height: 130%; max-width: 150%; object-fit: contain; object-position: top center;
+            transform: translateY(38vh) scale(1.45);
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 90%);
+            mask-image: linear-gradient(to bottom, black 50%, transparent 90%);
+            filter: contrast(1.08) brightness(1.04) drop-shadow(0 0 40px rgba(20, 2, 4, 0.55));
+            z-index: 2; position: relative;
+        }
+
+        .ui-layer { position: absolute; inset: 0; z-index: 3; padding: 3vw 5vw; display: flex; flex-direction: column; justify-content: flex-end; pointer-events: none; }
+        .bottom-section { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; padding-bottom: clamp(96px, 15vh, 170px); }
+
+        .left-col { display: flex; flex-direction: column; align-items: flex-start; max-width: 430px; }
+        .left-col h1 {
+            font-family: 'Cormorant Garamond', serif; font-weight: 500;
+            font-size: clamp(3.1rem, 5.6vw, 5.9rem); line-height: 0.92; letter-spacing: 0.015em; text-transform: uppercase;
+            margin-bottom: 18px;
+            background: linear-gradient(180deg, #fff3ea 10%, #e6d5c9 55%, #cfa9a0 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            filter: drop-shadow(0 6px 24px rgba(20, 2, 4, 0.55));
+        }
+        .left-col .role { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; line-height: 1.7; margin-bottom: 20px; color: #f1e2d6; }
+        .left-col .bio {
+            font-size: clamp(0.92rem, 1.05vw, 1.02rem); font-weight: 300; line-height: 1.75; color: #ecdcd0;
+            max-width: 34ch; margin-bottom: 28px;
+            text-shadow: 0 2px 14px rgba(20, 2, 4, 0.7);
+        }
+        
+        .cta {
+            pointer-events: auto; display: inline-flex; align-items: center; gap: 12px;
+            padding: 14px 26px; border: 1px solid rgba(230, 213, 201, 0.55); border-radius: 999px;
+            font-size: 0.74rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #f6e9de;
+            background: rgba(230, 213, 201, 0.06); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            position: relative; overflow: hidden; z-index: 1; transition: border-color 0.4s, color 0.4s;
+        }
+        .cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, #f4ebe6, #cfa9a0, #8b3a42);
+            opacity: 0; z-index: -1; transition: opacity 0.5s ease;
+        }
+        .cta:hover { color: var(--wine-900); border-color: transparent; }
+        .cta:hover::before { opacity: 1; }
+        .cta:focus-visible { outline: 2px solid var(--beige); outline-offset: 4px; }
+
+        .right-col { display: flex; flex-direction: column; align-items: flex-end; text-align: right; max-width: 360px; }
+        .right-col .script-text {
+            font-family: 'Great Vibes', cursive; font-weight: 400;
+            font-size: clamp(2.8rem, 4.9vw, 5rem); line-height: 1.02; margin-bottom: 28px; color: #f8ece2;
+            text-shadow: 0 0 34px rgba(230, 213, 201, 0.28), 0 4px 18px rgba(20, 2, 4, 0.6);
+        }
+        .right-col .services-list { list-style: none; width: 100%; max-width: 270px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
+        .right-col .services-list li { display: flex; justify-content: flex-end; align-items: baseline; gap: 16px; padding: 8px 0; color: #f1e2d6; }
+        .right-col .services-list li i { font-style: normal; font-size: 0.62rem; letter-spacing: 0.12em; opacity: 0.55; }
+
+        .sparkle { position: absolute; color: #e6d5c9; font-size: 1.5rem; opacity: 0; animation: sparkleAnim 3s infinite; pointer-events: none; z-index: 4; }
+        .sparkle-1 { top: 34%; left: 11%; animation-delay: 0s; }
+        .sparkle-2 { bottom: 40%; right: 20%; animation-delay: 1.5s; font-size: 1rem; }
+        @keyframes sparkleAnim { 0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); } 50% { opacity: 0.8; transform: scale(1.2) rotate(45deg); } }
+
+        /* =============================================
+           ВОЛНА (Исправлен стык)
+           ============================================= */
+        .wave-transition { position: absolute; left: 0; bottom: 0; width: 100%; line-height: 0; z-index: 15; pointer-events: none; }
+        .wave-transition svg { 
+            display: block; 
+            width: 100%; 
+            height: clamp(80px, 11vw, 170px); 
+            margin-bottom: -1px; /* Убирает пиксельный зазор снизу */
+        }
+        .wave-transition .wave-back { fill: var(--paper); opacity: 0.3; }
+        .wave-transition .wave-front { fill: var(--paper); }
+
+        /* =============================================
+           ВТОРОЙ ЭКРАН (Наложение для скрытия шва)
+           ============================================= */
+        .about-section {
+            position: relative; 
+            z-index: 5; 
+            height: 100vh; 
+            height: 100svh;
+            overflow: hidden; 
+            margin-top: -2px; /* Сильнее наезжает на волну */
+            
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            align-items: center;
+            
+            color: var(--ink);
+            background: linear-gradient(180deg, var(--paper) 0%, var(--paper-light) 32%, #efe0d5 64%, var(--paper-deep) 100%);
+            
+            padding-top: 8vh; 
+            padding-bottom: 0;
+        }
+
+        .about-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .about-glow { position: absolute; left: 50%; top: 50%; width: min(110vw, 1100px); aspect-ratio: 1; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(255, 251, 247, 0.95) 0%, rgba(255, 246, 240, 0.55) 38%, transparent 68%); }
+        .blob { position: absolute; border-radius: 50%; filter: blur(60px); }
+        .blob-a { width: 34vw; height: 34vw; left: -8vw; top: 42%; background: rgba(201, 123, 132, 0.30); }
+        .blob-b { width: 38vw; height: 38vw; right: -10vw; top: 30%; background: rgba(139, 58, 66, 0.20); }
+        .blob-c { width: 26vw; height: 26vw; left: 30vw; bottom: -8vw; background: rgba(214, 150, 140, 0.30); }
+        .about-section .grain { opacity: 0.22; mix-blend-mode: multiply; }
+
+        .bg-petal { position: absolute; top: -40px; width: 16px; height: 26px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, rgba(176, 52, 66, 0.55), rgba(120, 22, 40, 0.35)); filter: blur(0.4px); opacity: 0; animation: petalFall linear infinite; }
+        @keyframes petalFall {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: var(--o, 0.5); }
+            90% { opacity: var(--o, 0.5); }
+            100% { transform: translate3d(var(--dx, 80px), 105vh, 0) rotate(var(--rot, 360deg)); opacity: 0; }
+        }
+
+        .values-container { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            width: 100%;
+            padding: 0 2vw; 
+            position: relative; 
+            z-index: 2; 
+        }
+        
+        .values-title { text-align: center; margin-bottom: clamp(10px, 2vh, 30px); z-index: 10; }
+        .values-title .subtitle { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: #8B3A42; margin-bottom: 10px; display: block; font-weight: 600; }
+        .values-title h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; }
+        .values-title .hint { margin-top: 8px; font-size: 0.8rem; color: #8B3A42; }
+
+        /* Сетка на Flexbox */
+        .values-grid {
+            --card-w: clamp(180px, 17vw, 240px);
+            --card-h: clamp(150px, 22vh, 190px);
+            --shift: 20px;
+            
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            max-width: 1500px; 
+            width: 100%; 
+            position: relative; 
+            z-index: 2;
+            padding: 0 4vw; 
+        }
+        
+        .values-col { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            gap: clamp(10px, 2vh, 20px);
+            width: calc(var(--card-w) + var(--shift)); 
+            flex: 0 0 auto; 
+        }
+
+        /* =============================================
+           КАРТОЧКИ (С эффектом нажатия)
+           ============================================= */
+        .value-box {
+            position: relative; 
+            width: var(--card-w); 
+            height: var(--card-h);
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between;
+            padding: clamp(12px, 2vh, 22px); 
+            background: rgba(255, 255, 255, 0.65); 
+            border: 1px solid rgba(74, 14, 23, 0.25);
+            border-radius: 15px;
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(43, 5, 10, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s var(--ease-out), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .value-box:hover { 
+            border-color: rgba(74, 14, 23, 0.5); 
+            box-shadow: 0 15px 40px rgba(43, 5, 10, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.9); 
+            background: rgba(255, 255, 255, 0.9); 
+        }
+
+        .value-box:active {
+            background: linear-gradient(135deg, #8b3a42 0%, #4a0e17 100%);
+            transform: scale(0.97);
+            border-color: #2b050a;
+            box-shadow: 0 5px 15px rgba(43, 5, 10, 0.3);
+        }
+
+        .value-box:active .num,
+        .value-box:active h4,
+        .value-box:active p {
+            color: #f4eae2; 
+        }
+        
+        .value-box .num, .value-box h4, .value-box p { transition: color 0.3s ease; }
+        
+        .value-box .num { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.5vh, 2.2rem); line-height: 1; color: rgba(139, 58, 66, 0.6); }
+        .value-box .text { display: flex; flex-direction: column; }
+        .value-box h4 { font-size: clamp(0.75rem, 1.6vh, 0.95rem); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: #4a0e17; font-weight: 600; line-height: 1.3; }
+        .value-box p { font-size: clamp(0.7rem, 1.4vh, 0.8rem); line-height: 1.45; color: #5a3a3e; }
+
+        .values-col--left .value-box { text-align: right; align-items: flex-end; align-self: flex-end; }
+        .values-col--left .value-box:nth-child(2) { align-self: flex-start; }
+        .values-col--right .value-box { text-align: left; align-items: flex-start; align-self: flex-start; }
+        .values-col--right .value-box:nth-child(2) { align-self: flex-end; }
+
+        /* =============================================
+           ЦВЕТОК
+           ============================================= */
+        .flower-stage { 
+            position: relative; 
+            flex: 0 1 clamp(400px, 70vh, 700px); 
+            min-width: 380px; 
+            aspect-ratio: 1 / 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            perspective: 1400px; 
+            z-index: 5; 
+            pointer-events: none; 
+            margin: 0 auto; 
+        }
+        .flower-shadow { position: absolute; left: 50%; bottom: 3%; width: 62%; height: 9%; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(43, 5, 10, 0.32) 0%, transparent 70%); filter: blur(10px); pointer-events: none; }
+
+        .pollen-container { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+        .pollen { position: absolute; width: 5px; height: 5px; background: #ffd27a; border-radius: 50%; box-shadow: 0 0 14px 3px rgba(255, 190, 90, 0.5); opacity: 0; animation: flyPollen 4s infinite ease-in-out; }
+        @keyframes flyPollen { 0% { opacity: 0; transform: translate(0, 0) scale(0.5); } 20% { opacity: 1; } 80% { opacity: 0.8; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.5); } }
+
+        .flower-float { position: relative; width: 100%; height: 100%; pointer-events: none; }
+        .flower-tilt { width: 100%; height: 100%; transform: rotateX(12deg); transform-style: preserve-3d; pointer-events: auto; }
+
+        .flower-svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 22px 18px rgba(60, 5, 15, 0.2)); animation: spin 90s linear infinite; will-change: transform; pointer-events: auto; }
+        .flower-stage:hover .flower-svg, .flower-svg.hold { animation-play-state: paused; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .petal { cursor: pointer; outline: none; pointer-events: auto; }
+        .petal .hl { opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .petal:hover .hl, .petal:focus-visible .hl { opacity: 0.24; }
+
+        .flower-label {
+            position: absolute; left: 50%; top: 50%; z-index: 8; transform: translate(-50%, -50%);
+            padding: 9px 18px; border-radius: 999px; white-space: nowrap;
+            background: rgba(43, 5, 10, 0.92); color: #fff; border: 1px solid rgba(255, 255, 255, 0.28);
+            font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1;
+            box-shadow: 0 6px 18px rgba(43, 5, 10, 0.3);
+            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+        }
+        .flower-label.show { opacity: 1; }
+
+        /* =============================================
+           БЕГУЩАЯ СТРОКА
+           ============================================= */
+        .wavy-marquee-container { 
+            flex: 0 0 80px; 
+            width: 100%; 
+            overflow: hidden; 
+            background: transparent; 
+            z-index: 10; 
+        }
+
+        /* =============================================
+           АНИМАЦИИ
+           ============================================= */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+
+        /* =============================================
+           АДАПТИВ
+           ============================================= */
+        @media (max-width: 1100px), (max-height: 700px) {
+            .about-section { height: auto; min-height: 100vh; overflow: visible; padding-top: 100px; padding-bottom: 20px; }
+            .values-grid { flex-direction: column; justify-content: center; --card-w: min(300px, 100%); --card-h: auto; gap: 20px; padding: 0; }
+            .flower-stage { order: -1; flex: 0 0 auto; width: min(400px, 85vw); margin-bottom: 20px; }
+            .values-col { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .values-col .value-box { align-self: auto !important; width: min(260px, 100%); height: auto; min-height: 170px; text-align: center !important; align-items: center !important; }
+            .values-col .value-box .text { align-items: center !important; }
+            .wavy-marquee-container { position: relative; margin-top: 40px; height: 80px; }
+        }
+
+        @media (max-width: 900px) {
+            .hero-image { transform: translateY(12vh) scale(1.2); height: 110%; }
+            .beige-glow { width: 80vw; top: 25%; }
+            .bg-giant-text { font-size: 15.5vw; top: 8vh; }
+            .ui-layer { justify-content: flex-end; }
+            .ui-layer::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 68%; background: linear-gradient(to bottom, transparent 0%, rgba(20, 2, 4, 0.55) 38%, rgba(20, 2, 4, 0.88) 100%); z-index: -1; }
+            .bottom-section { flex-direction: column; align-items: center; text-align: center; gap: 14px; padding-bottom: clamp(96px, 15vh, 140px); }
+            .left-col { align-items: center; text-align: center; max-width: 440px; }
+            .left-col .bio { margin-bottom: 20px; }
+            .right-col { align-items: center; text-align: center; max-width: 100%; }
+            .right-col .script-text { margin-bottom: 0; font-size: clamp(2.2rem, 9vw, 3rem); }
+            .right-col .services-list { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .right-col { display: none; }
+        }
+        @media (max-width: 480px) {
+            .brand-name { display: none; }
+            .left-col .bio { font-size: 0.88rem; }
+            .left-col .role { font-size: 0.72rem; letter-spacing: 0.18em; }
+            .cta { padding: 12px 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= НАВИГАЦИЯ ================= -->
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a class="brand" href="#top" aria-label="Анастасия — на главную">
+            <svg class="logo-mark" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 4.5C32.5 15 34.5 29 22 40C9.5 29 11.5 15 22 4.5Z"/>
+                <path d="M14 27.5C19 23.6 25 23.6 30 27.5"/>
+                <circle cx="22" cy="32" r="1.3" fill="currentColor" stroke="none"/>
+            </svg>
+            <span class="brand-name">Anastasia</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#top" class="active">Главная</a></li>
+            <li><a href="#values">Компетенции</a></li>
+        </ul>
+    </nav>
+
+    <!-- ================= ПЕРВЫЙ ЭКРАН ================= -->
+    <section class="hero-section" id="top">
+        <div class="hero-bg" aria-hidden="true">
+            <span class="orb orb-1"></span>
+            <span class="orb orb-2"></span>
+            <span class="orb orb-3"></span>
+            <span class="grain"></span>
+        </div>
+
+        <div class="sparkle sparkle-1" aria-hidden="true">✦</div>
+        <div class="sparkle sparkle-2" aria-hidden="true">✦</div>
+        <div class="bg-giant-text" aria-hidden="true">PORTFOLIO</div>
+
+        <div class="hero-image-wrapper">
+            <div class="beige-glow"></div>
+            <picture>
+                <source srcset="img/настя.jpg" type="image/webp">
+                <img src="img/настя.jpg" alt="Анастасия — веб-дизайнер и креативный директор" class="hero-image" fetchpriority="high">
+            </picture>
+        </div>
+
+        <div class="ui-layer">
+            <div class="bottom-section">
+                <div class="left-col">
+                    <h1>Anastasia</h1>
+                    <p class="role">Web Designer &amp; Creative Director</p>
+                    <p class="bio">I craft brands and digital experiences that are elegant, strategic and impossible to forget.</p>
+                    <a class="cta" href="#values">Explore my work</a>
+                </div>
+                <div class="right-col">
+                    <p class="script-text">Design that<br>tells your story</p>
+                    <ul class="services-list">
+                        <li><i>01</i>Branding</li>
+                        <li><i>02</i>Web Design</li>
+                        <li><i>03</i>UX/UI Design</li>
+                        <li><i>04</i>Art Direction</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="wave-transition" aria-hidden="true">
+            <svg viewBox="0 0 1440 160" preserveAspectRatio="none">
+                <path class="wave-back" d="M0,70 C240,16 470,120 760,74 C1040,30 1250,58 1440,36 L1440,160 L0,160 Z"/>
+                <path class="wave-front" d="M0,96 C230,142 470,140 720,98 C970,56 1210,52 1440,92 L1440,160 L0,160 Z"/>
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- ================= ВТОРОЙ ЭКРАН ================= -->
+    <section class="about-section" id="values">
+
+        <div class="about-bg" aria-hidden="true">
+            <span class="about-glow"></span>
+            <span class="blob blob-a"></span>
+            <span class="blob blob-b"></span>
+            <span class="blob blob-c"></span>
+            <div id="bg-petals"></div>
+            <span class="grain"></span>
+        </div>
+
+        <div class="values-container">
+            <div class="values-title">
+                <span class="subtitle">МОИ КОМПЕТЕНЦИИ</span>
+                <h2>ОТКРОЙ МОИ НАВЫКИ</h2>
+                <p class="hint">Нажми на любой лепесток, чтобы узнать больше</p>
+            </div>
+
+            <div class="values-grid">
+
+                <div class="values-col values-col--left">
+                    <article class="value-box fade-up">
+                        <span class="num" aria-hidden="true">01</span>
+                        <div class="text">
+                            <h4>Современный подход</h4>
+                            <p>Эстетичный и актуальный дизайн, который выделит вас среди конкурентов.</p>
+                        </div>
+                    </article>
+                    <article class="value-box fade-up delay-1">
+                        <span class="num" aria-hidden="true">02</span>
+                        <div class="text">
+                            <h4>Индивидуальность</h4>
+                            <p>Мы создаем уникальный стиль, который отражает суть именно вашего бизнеса.</p>
+                        </div>
+                    </article>
+                    <article class="value-box fade-up delay-2">
+                        <span class="num" aria-hidden="true">03</span>
+                        <div class="text">
+                            <h4>Продуманная стратегия</h4>
+                            <p>Каждое решение опирается на цели вашего бизнеса и вашу аудиторию.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- ЦВЕТОК -->
+                <div class="flower-stage" id="flower-stage">
+                    <div class="flower-shadow" aria-hidden="true"></div>
+                    <div class="pollen-container" id="pollen" aria-hidden="true"></div>
+                    <div class="flower-float">
+                        <div class="flower-tilt" id="flower-tilt">
+                            <svg class="flower-svg" id="flower" viewBox="0 0 600 600" role="group" aria-label="Цветок с шестью лепестками-компетенциями">
+                                <defs></defs>
+                                <g id="petals-back"></g>
+                                <g id="petals-front"></g>
+                                <g id="flower-core"></g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flower-label" id="core-text" role="status" aria-live="polite"></div>
+                </div>
+
+                <div class="values-col values-col--right">
+                    <article class="value-box fade-up delay-2">
+                        <span class="num" aria-hidden="true">04</span>
+                        <div class="text">
+                            <h4>Дизайн запоминается</h4>
+                            <p>Каждый элемент работает на создание правильного впечатления о вас.</p>
+                        </div>
+                    </article>
+                    <article class="value-box fade-up delay-2">
+                        <span class="num" aria-hidden="true">05</span>
+                        <div class="text">
+                            <h4>Работает на результат</h4>
+                            <p>Не просто красивая картинка, а инструмент для привлечения клиентов.</p>
+                        </div>
+                    </article>
+                    <article class="value-box fade-up delay-2">
+                        <span class="num" aria-hidden="true">06</span>
+                        <div class="text">
+                            <h4>Внимание к деталям</h4>
+                            <p>Типографика, цвет и ритм выверены до мелочей — так дизайн выглядит дорого.</p>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- БЕГУЩАЯ СТРОКА -->
+        <div class="wavy-marquee-container" aria-hidden="true">
+            <svg viewBox="0 0 3000 80" preserveAspectRatio="xMinYMid slice" style="width: 100%; height: 80px; display: block;">
+                <path id="wavePath" d="M 0,40 Q 375,10 750,40 T 1500,40 T 2250,40 T 3000,40" fill="transparent"/>
+                <text fill="#2b050a" font-family="'Cormorant Garamond', serif" font-size="28" font-weight="400" letter-spacing="3">
+                    <textPath href="#wavePath" startOffset="0%">
+                        DESIGN WITH PURPOSE • STRATEGIC VISION • UNFORGETTABLE EXPERIENCES • DESIGN WITH PURPOSE • STRATEGIC VISION • UNFORGETTABLE EXPERIENCES • DESIGN WITH PURPOSE • STRATEGIC VISION • UNFORGETTABLE EXPERIENCES • DESIGN WITH PURPOSE • STRATEGIC VISION • UNFORGETTABLE EXPERIENCES • DESIGN WITH PURPOSE • STRATEGIC VISION • UNFORGETTABLE EXPERIENCES • DESIGN WITH PURPOSE • STRATEGIC VISION • UNFORGETTABLE EXPERIENCES • 
+                        <animate attributeName="startOffset" from="0%" to="-50%" dur="25s" repeatCount="indefinite" />
+                    </textPath>
+                </text>
+            </svg>
+        </div>
+
+    </section>
+
+    <!-- ================= СКРИПТ ================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const NS = "http://www.w3.org/2000/svg";
+            const el = (name, attrs = {}, parent) => {
+                const n = document.createElementNS(NS, name);
+                for (const k in attrs) n.setAttribute(k, attrs[k]);
+                if (parent) parent.appendChild(n);
+                return n;
+            };
+
+            let seed = 7;
+            const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+            const range = (a, b) => a + rnd() * (b - a);
+
+            const svg = document.getElementById('flower');
+            const defs = svg.querySelector('defs');
+            const CX = 300, CY = 300;
+
+            defs.innerHTML = `
+                <linearGradient id="gBase" x1="0.5" y1="1" x2="0.5" y2="0">
+                    <stop offset="0"    stop-color="#3b0610"/>
+                    <stop offset="0.16" stop-color="#7c1424"/>
+                    <stop offset="0.46" stop-color="#b52c3a"/>
+                    <stop offset="0.78" stop-color="#d0505b"/>
+                    <stop offset="1"    stop-color="#e5808a"/>
+                </linearGradient>
+                <linearGradient id="gCross" x1="0" y1="0.5" x2="1" y2="0.5">
+                    <stop offset="0"    stop-color="#ff9aa3" stop-opacity="0.34"/>
+                    <stop offset="0.22" stop-color="#ff9aa3" stop-opacity="0"/>
+                    <stop offset="0.5"  stop-color="#1c0005" stop-opacity="0.32"/>
+                    <stop offset="0.78" stop-color="#ff9aa3" stop-opacity="0"/>
+                    <stop offset="1"    stop-color="#ff9aa3" stop-opacity="0.30"/>
+                </linearGradient>
+                <linearGradient id="gThroat" x1="0.5" y1="1" x2="0.5" y2="0">
+                    <stop offset="0"    stop-color="#ff7a3a" stop-opacity="0.55"/>
+                    <stop offset="0.22" stop-color="#e0502e" stop-opacity="0.28"/>
+                    <stop offset="0.45" stop-color="#e0502e" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="gBaseShade" x1="0.5" y1="1" x2="0.5" y2="0">
+                    <stop offset="0"    stop-color="#0d0002" stop-opacity="0.75"/>
+                    <stop offset="0.3"  stop-color="#0d0002" stop-opacity="0.25"/>
+                    <stop offset="0.55" stop-color="#0d0002" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="gTip" x1="0.5" y1="1" x2="0.5" y2="0">
+                    <stop offset="0.7" stop-color="#ffc3c0" stop-opacity="0"/>
+                    <stop offset="1"   stop-color="#ffc3c0" stop-opacity="0.35"/>
+                </linearGradient>
+                <radialGradient id="gSheen" cx="0.5" cy="0.5" r="0.5">
+                    <stop offset="0"   stop-color="#ffe3df" stop-opacity="0.75"/>
+                    <stop offset="0.6" stop-color="#ffb8b8" stop-opacity="0.25"/>
+                    <stop offset="1"   stop-color="#ffb8b8" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="gThroatGlow" cx="0.5" cy="0.5" r="0.5">
+                    <stop offset="0"   stop-color="#ff8a3d" stop-opacity="0.85"/>
+                    <stop offset="0.45" stop-color="#d4452a" stop-opacity="0.5"/>
+                    <stop offset="1"   stop-color="#7a0f1c" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="gGreen" cx="0.5" cy="0.5" r="0.5">
+                    <stop offset="0"   stop-color="#4f6a1f" stop-opacity="0.85"/>
+                    <stop offset="1"   stop-color="#2c3a10" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="gAnther" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0"   stop-color="#1d0508"/>
+                    <stop offset="0.45" stop-color="#5c1a1c"/>
+                    <stop offset="1"   stop-color="#1a0407"/>
+                </linearGradient>
+                <radialGradient id="gStigma" cx="0.4" cy="0.35" r="0.7">
+                    <stop offset="0"   stop-color="#fff0ea"/>
+                    <stop offset="0.6" stop-color="#eebdb3"/>
+                    <stop offset="1"   stop-color="#c47c76"/>
+                </radialGradient>
+                <filter id="blur2" x="-30%" y="-15%" width="160%" height="130%"><feGaussianBlur stdDeviation="2"/></filter>
+                <filter id="blur4" x="-30%" y="-15%" width="160%" height="130%"><feGaussianBlur stdDeviation="4"/></filter>
+                <filter id="blur8" x="-40%" y="-20%" width="180%" height="140%"><feGaussianBlur stdDeviation="8"/></filter>
+            `;
+
+            function smoothPath(pts) {
+                let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+                for (let i = 0; i < pts.length - 1; i++) {
+                    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+                    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+                    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+                    d += `C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+                }
+                return d + 'Z';
+            }
+
+            function buildPetal(o) {
+                const N = 34, left = [], right = [], axis = [];
+                const halfWidth = t => o.W * Math.pow(Math.sin(Math.PI * Math.pow(t, 1.1)), 1.0);
+                for (let i = 0; i <= N; i++) {
+                    const t = i / N;
+                    const y = -o.L * t;
+                    const cx = o.bend * o.L * t * t;
+                    const w = halfWidth(t);
+                    const env = Math.sin(Math.PI * t);
+                    const rl = o.ruffle * env * Math.sin(t * o.freq * Math.PI + o.phaseL) * o.W * 0.075;
+                    const rr = o.ruffle * env * Math.sin(t * o.freq * Math.PI + o.phaseR) * o.W * 0.075;
+                    left.push([cx - w * (1 + o.asym) - rl, y]);
+                    right.push([cx + w * (1 - o.asym) + rr, y]);
+                    axis.push([cx, y, w]);
+                }
+                const outline = left.concat(right.reverse().slice(0));
+                return { d: smoothPath(outline), axis };
+            }
+
+            const PETAL_DEFS = [
+                { a: 30,  type: 'outer', skill: 'Web Design' },
+                { a: 150, type: 'outer', skill: 'Branding' },
+                { a: 270, type: 'outer', skill: 'UX/UI' },
+                { a: 90,  type: 'inner', skill: 'Art Direction' },
+                { a: 210, type: 'inner', skill: 'Strategy' },
+                { a: 330, type: 'inner', skill: 'Prototyping' }
+            ];
+
+            const gBack = document.getElementById('petals-back');
+            const gFront = document.getElementById('petals-front');
+
+            PETAL_DEFS.forEach((pd, idx) => {
+                const inner = pd.type === 'inner';
+                const o = {
+                    L: inner ? range(222, 238) : range(236, 250),
+                    W: inner ? range(60, 66) : range(47, 52),
+                    bend: range(-0.07, 0.07),
+                    asym: range(-0.07, 0.07),
+                    ruffle: inner ? range(0.9, 1.5) : range(0.4, 0.8),
+                    freq: inner ? range(3.2, 4.4) : range(2.2, 3.0),
+                    phaseL: range(0, 6), phaseR: range(0, 6)
+                };
+                const { d, axis } = buildPetal(o);
+                const dark = inner ? 0 : 0.14;
+
+                const rot = pd.a + range(-4, 4);
+                const th = rot * Math.PI / 180, cs = Math.cos(th), sn = Math.sin(th);
+                const shX = 5 * cs + 10 * sn, shY = -5 * sn + 10 * cs;
+                const sideSign = (-0.6 * cs + -0.8 * sn) > 0 ? 1 : -1;
+                
+                const slot = el('g', { transform: `translate(${CX} ${CY}) rotate(${rot})`, 'data-a': pd.a }, inner ? gFront : gBack);
+                const petal = el('g', {
+                    class: 'petal', tabindex: 0, role: 'button',
+                    'data-skill': pd.skill, 'aria-label': `Лепесток: ${pd.skill}`
+                }, slot);
+
+                const clip = el('clipPath', { id: `pc${idx}` }, defs);
+                el('path', { d }, clip);
+
+                el('path', { d, fill: '#1a0005', opacity: inner ? 0.55 : 0.42, filter: 'url(#blur8)', transform: `translate(${shX.toFixed(1)} ${shY.toFixed(1)}) scale(1.03)` }, petal);
+
+                el('path', { d, fill: 'url(#gBase)' }, petal);
+                if (dark) el('path', { d, fill: '#1a0005', opacity: dark }, petal);
+
+                const inside = el('g', { 'clip-path': `url(#pc${idx})` }, petal);
+                const bbox = { x: -90, y: -o.L - 10, w: 180, h: o.L + 20 };
+                const full = (fill, extra = {}) => el('rect', Object.assign({ x: bbox.x, y: bbox.y, width: bbox.w, height: bbox.h, fill }, extra), inside);
+
+                full('url(#gCross)');
+                full('url(#gTip)');
+                full('url(#gThroat)', { y: -o.L * 0.55, height: o.L * 0.55 + 10 });
+                full('url(#gBaseShade)');
+
+                const veins = inner ? 30 : 22;
+                for (let k = -veins; k <= veins; k++) {
+                    const f = k / veins;
+                    const pts = [];
+                    const t0 = 0.03, t1 = range(0.8, 0.97);
+                    for (let s = 0; s <= 9; s++) {
+                        const t = t0 + (t1 - t0) * (s / 9);
+                        const i = Math.round(t * 34), a = axis[i];
+                        pts.push([a[0] + f * a[2] * 0.93 + Math.sin(t * 9 + k) * 0.6, a[1]]);
+                    }
+                    const light = (k + veins) % 2 === 0;
+                    el('path', {
+                        d: smoothPath(pts).slice(0, -1), fill: 'none',
+                        stroke: light ? '#ffc4c4' : '#220007',
+                        'stroke-width': (range(0.5, 1.3)).toFixed(2),
+                        'stroke-opacity': (light ? range(0.06, 0.2) : range(0.1, 0.26)).toFixed(2)
+                    }, inside);
+                }
+
+                const mid = axis.slice(1, 31).map(a => [a[0], a[1]]);
+                el('path', { d: smoothPath(mid).slice(0, -1), fill: 'none', stroke: '#1a0005', 'stroke-width': 4, 'stroke-opacity': 0.5, filter: 'url(#blur2)' }, inside);
+                el('path', { d: smoothPath(mid.map(p => [p[0] + 3.5, p[1]])).slice(0, -1), fill: 'none', stroke: '#ffd2cf', 'stroke-width': 1.6, 'stroke-opacity': 0.22, filter: 'url(#blur2)' }, inside);
+
+                const sx = axis[20][0] + sideSign * o.W * 0.28;
+                el('ellipse', { cx: sx, cy: -o.L * 0.58, rx: o.W * 0.38, ry: o.L * 0.24, fill: 'url(#gSheen)', opacity: inner ? 0.75 : 0.5, transform: `rotate(${sideSign * -8} ${sx} ${-o.L * 0.58})` }, inside);
+                const edge = axis.slice(4, 30).map(a => [a[0] + sideSign * a[2] * 0.72, a[1]]);
+                el('path', { d: smoothPath(edge).slice(0, -1), fill: 'none', stroke: '#ffb3b6', 'stroke-width': 9, 'stroke-opacity': 0.2, filter: 'url(#blur4)' }, inside);
+
+                const edge2 = axis.slice(3, 31).map(a => [a[0] - sideSign * a[2] * 0.72, a[1]]);
+                el('path', { d: smoothPath(edge2).slice(0, -1), fill: 'none', stroke: '#1a0005', 'stroke-width': 16, 'stroke-opacity': 0.3, filter: 'url(#blur4)' }, inside);
+                el('path', { d, fill: 'none', stroke: '#ff9ea6', 'stroke-width': 7, 'stroke-opacity': 0.22, filter: 'url(#blur4)' }, inside);
+
+                el('path', { d, fill: 'none', stroke: '#ffb0b6', 'stroke-width': 0.9, 'stroke-opacity': 0.35 }, petal);
+                el('path', { d, fill: 'none', stroke: '#2a0007', 'stroke-width': 1.2, 'stroke-opacity': 0.25, transform: 'translate(0.6 0.6)' }, petal);
+
+                el('path', { d, fill: '#ffd9d4', class: 'hl' }, petal);
+                el('path', { d, fill: 'transparent' }, petal);
+            });
+
+            const core = document.getElementById('flower-core');
+            const coreG = el('g', { transform: `translate(${CX} ${CY})`, 'pointer-events': 'none' }, core);
+
+            el('circle', { r: 85, fill: '#1a0005', opacity: 0.38, filter: 'url(#blur8)' }, coreG);
+            el('circle', { r: 46, fill: 'url(#gThroatGlow)' }, coreG);
+            el('circle', { r: 17, fill: 'url(#gGreen)', filter: 'url(#blur4)' }, coreG);
+
+            const stamens = [
+                { ang: -50, len: 78 }, { ang: -30, len: 94 }, { ang: -10, len: 104 },
+                { ang: 12, len: 98 },  { ang: 32, len: 90 },  { ang: 52, len: 76 }
+            ];
+            stamens.forEach((s, i) => {
+                const r = s.ang * Math.PI / 180;
+                const ex = Math.sin(r) * s.len, ey = -Math.cos(r) * s.len;
+                const sway = (i % 2 ? 1 : -1) * 9;
+                const cxp = ex * 0.45 + sway, cyp = ey * 0.55;
+                const dPath = `M0,0 Q${cxp.toFixed(1)},${cyp.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`;
+                el('path', { d: dPath, fill: 'none', stroke: '#1a0005', 'stroke-width': 4, 'stroke-opacity': 0.4, filter: 'url(#blur4)', transform: 'translate(3 7)', 'stroke-linecap': 'round' }, coreG);
+                el('path', { d: dPath, fill: 'none', stroke: '#9c2a1e', 'stroke-width': 3.4, 'stroke-linecap': 'round' }, coreG);
+                el('path', { d: dPath, fill: 'none', stroke: '#f08a5c', 'stroke-width': 1.1, 'stroke-opacity': 0.55, 'stroke-linecap': 'round', transform: 'translate(-0.8 -0.4)' }, coreG);
+                const tx = ex - cxp, ty = ey - cyp;
+                const tang = Math.atan2(ty, tx) * 180 / Math.PI;
+                const an = el('g', { transform: `translate(${ex.toFixed(1)} ${ey.toFixed(1)}) rotate(${(tang).toFixed(1)})` }, coreG);
+                el('ellipse', { cx: 0, cy: 0, rx: 15, ry: 5.2, fill: 'url(#gAnther)' }, an);
+                el('path', { d: 'M-12,-1.6 Q0,-4 12,-1.6', fill: 'none', stroke: '#c46a4a', 'stroke-width': 0.9, 'stroke-opacity': 0.55, 'stroke-linecap': 'round' }, an);
+                for (let p = 0; p < 6; p++) {
+                    el('circle', { cx: range(-13, 13), cy: range(-5, 5), r: range(0.6, 1.5), fill: '#ee9d3a', 'fill-opacity': range(0.5, 0.95) }, an);
+                }
+            });
+
+            const pist = 'M0,0 Q22,-56 40,-124';
+            el('path', { d: pist, fill: 'none', stroke: '#1a0005', 'stroke-width': 4, 'stroke-opacity': 0.35, filter: 'url(#blur4)', transform: 'translate(3 7)', 'stroke-linecap': 'round' }, coreG);
+            el('path', { d: pist, fill: 'none', stroke: '#c46158', 'stroke-width': 3.6, 'stroke-linecap': 'round' }, coreG);
+            el('path', { d: pist, fill: 'none', stroke: '#f6c9bf', 'stroke-width': 1.1, 'stroke-opacity': 0.6, 'stroke-linecap': 'round', transform: 'translate(-0.8 0)' }, coreG);
+            const st = el('g', { transform: 'translate(40 -124)' }, coreG);
+            el('circle', { r: 6.6, fill: 'url(#gStigma)' }, st);
+            el('circle', { cx: -4, cy: -1, r: 4.2, fill: 'url(#gStigma)' }, st);
+            el('circle', { cx: 4, cy: -2, r: 4.2, fill: 'url(#gStigma)' }, st);
+            el('circle', { cx: -1.5, cy: -3, r: 1.6, fill: '#fff', 'fill-opacity': 0.8 }, st);
+
+            const stage = document.getElementById('flower-stage');
+            const label = document.getElementById('core-text');
+            let locked = false;
+
+            function showLabel(petal) {
+                const r = petal.getBoundingClientRect(), s = stage.getBoundingClientRect(), f = svg.getBoundingClientRect();
+                const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+                const fx = f.left + f.width / 2, fy = f.top + f.height / 2;
+                label.textContent = petal.dataset.skill;
+                label.style.left = (fx + (cx - fx) * 1.2 - s.left) + 'px';
+                label.style.top = (fy + (cy - fy) * 1.2 - s.top) + 'px';
+                label.classList.add('show');
+            }
+            const hideLabel = () => label.classList.remove('show');
+
+            function pluck(petal) {
+                if (petal.dataset.busy) return;
+                petal.dataset.busy = '1';
+                locked = true;
+                svg.classList.add('hold');
+                showLabel(petal);
+
+                const dx = range(-90, 90), rot = range(-170, 170);
+                petal.style.transformOrigin = '0px -120px';
+                const finish = () => { delete petal.dataset.busy; locked = false; svg.classList.remove('hold'); };
+                
+                const fly = petal.animate([
+                    { transform: 'translate(0px, 0px) rotate(0deg) scale(1)', opacity: 1 },
+                    { transform: `translate(${dx}px, -460px) rotate(${rot}deg) scale(0.6)`, opacity: 0 }
+                ], { duration: 800, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'forwards' });
+
+                setTimeout(() => {
+                    hideLabel();
+                    fly.playbackRate = -1;
+                    fly.play();
+                    fly.onfinish = () => { fly.cancel(); finish(); };
+                }, 2200);
+            }
+
+            svg.addEventListener('pointerdown', e => { 
+                const p = e.target.closest('.petal'); 
+                if (p && !p.dataset.busy) pluck(p); 
+            });
+            
+            svg.addEventListener('keydown', e => {
+                if (e.key !== 'Enter' && e.key !== ' ') return;
+                const p = e.target.closest('.petal');
+                if (p) { e.preventDefault(); pluck(p); }
+            });
+
+            const enter = e => { const p = e.target.closest('.petal'); if (!p || locked) return; showLabel(p); };
+            const leave = e => { if (locked) return; hideLabel(); };
+            svg.addEventListener('mouseover', enter);
+            svg.addEventListener('mouseout', leave);
+
+            const pollenContainer = document.getElementById('pollen');
+            for (let i = 0; i < 36; i++) {
+                const pollen = document.createElement('div');
+                pollen.classList.add('pollen');
+                const startX = Math.random() * 400 - 200;
+                const startY = Math.random() * 400 - 200;
+                pollen.style.left = `calc(50% + ${startX}px)`;
+                pollen.style.top = `calc(50% + ${startY}px)`;
+                pollen.style.setProperty('--x', `${(Math.random() - 0.5) * 460}px`);
+                pollen.style.setProperty('--y', `${(Math.random() - 0.5) * 460 - 100}px`);
+                pollen.style.animationDelay = `${Math.random() * 5}s`;
+                pollen.style.animationDuration = `${Math.random() * 3 + 3}s`;
+                pollenContainer.appendChild(pollen);
+            }
+
+            const bgPetals = document.getElementById('bg-petals');
+            for (let i = 0; i < 9; i++) {
+                const p = document.createElement('span');
+                p.className = 'bg-petal';
+                const s = 0.6 + Math.random() * 0.9;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.transform = `scale(${s})`;
+                p.style.setProperty('--dx', `${(Math.random() - 0.5) * 240}px`);
+                p.style.setProperty('--rot', `${(Math.random() > 0.5 ? 1 : -1) * (200 + Math.random() * 300)}deg`);
+                p.style.setProperty('--o', (0.25 + Math.random() * 0.35).toFixed(2));
+                p.style.animationDuration = `${14 + Math.random() * 14}s`;
+                p.style.animationDelay = `${-Math.random() * 20}s`;
+                bgPetals.appendChild(p);
+            }
+
+            const faders = document.querySelectorAll('.fade-up');
+            const io = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                });
+            }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
+            faders.forEach(f => io.observe(f));
+
+            const nav = document.getElementById('nav');
+            const about = document.getElementById('values');
+            const wave = document.querySelector('.wave-transition');
+            const navLinks = [...document.querySelectorAll('.nav-links a')];
+            const navSections = navLinks.map(a => document.querySelector(a.getAttribute('href')));
+            let ticking = false;
+            
+            function updateNav() {
+                ticking = false;
+                nav.classList.toggle('scrolled', window.scrollY > 30);
+                nav.classList.toggle('light', about.getBoundingClientRect().top <= nav.offsetHeight / 2 + wave.offsetHeight * 0.5);
+                let idx = 0;
+                navSections.forEach((sec, i) => { if (sec.getBoundingClientRect().top <= window.innerHeight * 0.4) idx = i; });
+                navLinks.forEach((a, i) => { a.classList.toggle('active', i === idx); a.toggleAttribute('aria-current', i === idx); });
+            }
+            const requestNav = () => { if (!ticking) { ticking = true; requestAnimationFrame(updateNav); } };
+            window.addEventListener('scroll', requestNav, { passive: true });
+            window.addEventListener('resize', requestNav);
+            updateNav();
+        });
+    </script>
+</body>
+</html>
